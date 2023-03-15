@@ -14,7 +14,14 @@ public class Assorted {
      *         integer data types.
      */
     public static int findSum(List<?> list) {
-        return 0;
+        int total = 0;
+        for(int i = 0; i < list.size(); i++){
+
+            String sValue = list.get(i).toString();
+            int iValue = Integer.parseInt(stringValue);
+            total += iValue;
+        } 
+        return total;
     }
 
     /**
@@ -26,7 +33,13 @@ public class Assorted {
      * @return a list containing integers only.
      */
     public static List<Integer> filterStrings(List list) {
-        return null;
+        for(int i = 0; i < list.size(); i++){
+            if(list.get(i).getClass().equals(String.class))
+            {
+                list.remove(i);
+            }
+        }
+        return list;
     }
 
     /**
@@ -39,7 +52,11 @@ public class Assorted {
      *         e.g. ["1: a", "2: b", "3: c"]
      */
     public static List<String> lineNumbering(List<String> list) {
-        return null;
+        for(int i = 0; i < list.size(); i++){
+            String newString = i + 1 + ": " + list.get(i);
+            list.set(i, newString);
+        }
+        return list;
     }
 
     /**
@@ -61,7 +78,12 @@ public class Assorted {
      * @return the number of people who are still on the bus after the last stop.
      */
     public static int busStop(List<Integer[]> list) {
-        return 0;
+        int pas = 0;
+        for(int i = 0; i < list.size(); i++){
+            pas = pas + list.get(i)[0];
+            pas = pas - list.get(i)[1];
+        }
+        return pas;
     }
 
     /**
@@ -73,7 +95,14 @@ public class Assorted {
      *         Eg: [0, 0, 0, 1] is treated as 0001 which is the binary representation of 1.
      */
     public static int toBinary(List<Integer> list) {
-        return 0;
+        double x = 0;
+        for(int i = 0; i < list.size(); i++){
+            if(list.get(list.size() - i - 1) == 1){
+                x += Math.pow(2,i);
+                System.out.println(x);
+            }
+        }
+        return (int)x;
     }
 
     /**
@@ -92,7 +121,14 @@ public class Assorted {
      *              subtractList([1,2,2,2,3], [2]) returns [1,3]
      */
     public static List<Integer> subtractList(List<Integer> listA, List<Integer> listB) {
-        return null;
+        for(int i = 0; i < listB.size(); i++){
+            for(int j = 0; j < listA.size(); j++){
+                if(listB.get(i) == listA.get(j)){
+                    listA.remove(i);
+                }
+            }
+        }
+        return listA;
     }
 
     /**
@@ -106,7 +142,24 @@ public class Assorted {
      *         integers remain in their original position.
      */
     public static List<Integer> sortOdd(List<Integer> list) {
-        return null;
+        // create a list to hold the odd integers and their indices
+        List<Integer> oddIndices = new ArrayList<>();
+        List<Integer> oddIntegers = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) % 2 != 0) {
+                oddIndices.add(i);
+                oddIntegers.add(list.get(i));
+            }
+        }
+        // sort the odd integers in ascending order
+        Collections.sort(oddIntegers);
+        // create the resulting list with the odd integers sorted and the even integers in their original positions
+        List<Integer> result = new ArrayList<>(list);
+        for (int j = 0; j < oddIndices.size(); j++) {
+            result.set(oddIndices.get(j), oddIntegers.get(j));
+        }
+        return result;
+    }
     }
 
     /**
@@ -131,7 +184,26 @@ public class Assorted {
      *              uniqueNumber(1,100) returns [1,2,3,4,5,6,7,8,9,89]
      */
     public static List<Integer> uniqueNumber(int lowerBound, int upperBound) {
-        return null;
+              ArrayList<Integer> outList = new ArrayList<>();
+        while (lowerBound <= upperBound){
+            int n = lowerBound;
+            int sum = 0;
+            LinkedList<Integer> stack = new LinkedList<>();
+            while (n > 0){
+                stack.push(n % 10);
+                n = n / 10;
+            }
+            int i = 1;
+            while(!stack.isEmpty()){
+                sum += Math.pow(stack.pop(), i);
+                i++;
+            }
+            if (lowerBound == sum){
+                outList.add(lowerBound);
+            }
+            lowerBound++;
+        }
+        return outList;
     }
 
     /**
@@ -154,7 +226,23 @@ public class Assorted {
      *              filterNTimes([20,37,20,21], 1) returns [20,37,21]
      */
     public static List<Integer> filterNTimes(List<Integer> list, int n) {
-        return null;
+        ArrayList<Integer> uVal = new ArrayList<>();
+        for (int i : list) {
+            if (!uVal.contains(i))
+                uVal.add(i);
+        }
+        for (int j : uVal) {
+            int count = 0;
+            for (int k = 0; k < list.size(); k++) {
+                if (j == list.get(k)) {
+                    if (count < n)
+                        count++uVal;
+                    else
+                        list.remove(k);
+                }
+            }
+        }
+        return list;
     }
 
     /**
@@ -191,7 +279,22 @@ public class Assorted {
      *              ["WEST", "WEST"]
      */
     public static List<String> wildWest(List<String> directions) {
-        return null;
+        String n = "NORTH"
+        String s = "SOUTH"
+        String e = "EAST"
+        String w = "WEST"
+        for (int i = 0; i < directions.size() - 1; i++) {
+            if ((directions.get(i).equals(n) && directions.get(i+1).equals(s))
+                    || (directions.get(i).equals(s) && directions.get(i+1).equals(n))
+                    || (directions.get(i).equals(e) && directions.get(i+1).equals(w))
+                    || (directions.get(i).equals(w) && directions.get(i+1).equals(e)))
+            {
+                directions.remove(i);
+                directions.remove(i);
+                i = -1;
+            }
+        }
+        return directions;
     }
 
     /**
@@ -215,6 +318,33 @@ public class Assorted {
      *              queueTime([2,3,10], 2) returns 12
      */
     public static int queueTime(List<Integer> queue, int tillsOpen) {
-        return 0;
+        ArrayList<Integer> tills = new ArrayList<>();
+        int use = 0;
+        int tt = 0;
+        int rt = 1;
+
+        while (use < tillsOpen) {
+            tills.add(queue.get(0));
+            queue.remove(0);
+            use++;
+        }
+
+        while (queue.size() > 0 || rt > 0) {
+            rt = 0;
+            tt++;
+            for (int i = 0; i < tills.size(); i++) {
+                if (tills.get(i) == 1) {
+                    if (queue.size() > 0) {
+                        tills.set(i, queue.get(0));
+                        queue.remove(0);
+                    }
+                }
+                else {
+                    tills.set(i, tills.get(i) - 1);
+                }
+                rt += tills.get(i);
+            }
+        }
+        return tt;
     }
 }
